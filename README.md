@@ -8,32 +8,32 @@
 | Authentication    |    |
 |-------------------|----|
 | Authentication    | ✅ |
-| Re-authentication | ✅ |
+| Re-authentication | ❌ |
 
 | Account                   |    |
 |---------------------------|----|
 | Get account info          | ✅ |
 | Get account subscriptions | ✅ |
-| Get account subscription  | ✅ |
+| Get account subscription  | ❌ |
 
 | Commands              |    |
 |-----------------------|----|
-| Enable live tracking  | ✅ |
-| Disable live tracking | ✅ |
-| Turn LED on           | ✅ |
-| Turn LED off          | ✅ |
-| Turn buzzer on        | ✅ |
-| Turn buzzer off       | ✅ |
+| Enable live tracking  | ❌ |
+| Disable live tracking | ❌ |
+| Turn LED on           | ❌ |
+| Turn LED off          | ❌ |
+| Turn buzzer on        | ❌ |
+| Turn buzzer off       | ❌ |
 
 | Pet      |    |
 |----------|----|
-| Get pet  | ✅ |
-| Get pets | ✅ |
+| Get pet  | ❌ |
+| Get pets | ❌ |
 
 | Tracker              |    |
 |----------------------|----|
-| Get all trackers     | ✅ |
-| Get tracker          | ✅ |
-| Get tracker history  | ✅ |
-| Get tracker location | ✅ |
-| Get tracker hardware | ✅ |
+| Get all trackers     | ❌ |
+| Get tracker          | ❌ |
+| Get tracker history  | ❌ |
+| Get tracker location | ❌ |
+| Get tracker hardware | ❌ |
