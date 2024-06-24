@@ -53,4 +53,16 @@ func main() {
 		log.Fatalf("Failed to get account shares: %v", err)
 	}
 	fmt.Printf("%+v\n", shares)
+
+	pets, err := t.GetPets()
+	if err != nil {
+		log.Fatalf("Failed to get pets: %v", err)
+	}
+	for _, p := range *pets {
+		pet, err := t.GetPet(p.ID)
+		if err != nil {
+			logrus.Warningf("Failed to get pet %q: %v", p.ID, err)
+		}
+		fmt.Printf("%+v\n", pet)
+	}
 }
