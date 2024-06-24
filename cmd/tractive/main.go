@@ -49,47 +49,45 @@ func main() {
 	}
 	fmt.Printf("%+v\n", t)
 
-	/*
-		// Account Info
-		info, err := t.GetAccountInfo()
-		if err != nil {
-			log.Fatalf("Failed to get account info: %v", err)
-		}
-		fmt.Printf("Account info: %+v\n", info)
+	// Account Info
+	info, err := t.GetAccountInfo()
+	if err != nil {
+		log.Fatalf("Failed to get account info: %v", err)
+	}
+	fmt.Printf("Account info: %+v\n", info)
 
-		// Subscriptions
-		subscriptions, err := t.GetAccountSubscriptions()
+	// Subscriptions
+	subscriptions, err := t.GetAccountSubscriptions()
+	if err != nil {
+		log.Fatalf("Failed to get account subscriptions: %v", err)
+	}
+	for _, s := range *subscriptions {
+		sub, err := t.GetAccountSubscription(s.ID)
 		if err != nil {
-			log.Fatalf("Failed to get account subscriptions: %v", err)
+			logrus.Warningf("Failed to get subscription %q: %v", s.ID, err)
 		}
-		for _, s := range *subscriptions {
-			sub, err := t.GetAccountSubscription(s.ID)
-			if err != nil {
-				logrus.Warningf("Failed to get subscription %q: %v", s.ID, err)
-			}
-			fmt.Printf("Subscription: %+v\n", sub)
-		}
+		fmt.Printf("Subscription: %+v\n", sub)
+	}
 
-		// Account Shares
-		shares, err := t.GetAccountShares()
-		if err != nil {
-			log.Fatalf("Failed to get account shares: %v", err)
-		}
-		fmt.Printf("Share: %+v\n", shares)
+	// Account Shares
+	shares, err := t.GetAccountShares()
+	if err != nil {
+		log.Fatalf("Failed to get account shares: %v", err)
+	}
+	fmt.Printf("Share: %+v\n", shares)
 
-		// Pets
-		pets, err := t.GetPets()
+	// Pets
+	pets, err := t.GetPets()
+	if err != nil {
+		log.Fatalf("Failed to get pets: %v", err)
+	}
+	for _, p := range *pets {
+		pet, err := t.GetPet(p.ID)
 		if err != nil {
-			log.Fatalf("Failed to get pets: %v", err)
+			logrus.Warningf("Failed to get pet %q: %v", p.ID, err)
 		}
-		for _, p := range *pets {
-			pet, err := t.GetPet(p.ID)
-			if err != nil {
-				logrus.Warningf("Failed to get pet %q: %v", p.ID, err)
-			}
-			fmt.Printf("Pet: %+v\n", pet)
-		}
-	*/
+		fmt.Printf("Pet: %+v\n", pet)
+	}
 	// Trackers
 	trackers, err := t.GetAllTrackers()
 	if err != nil {
