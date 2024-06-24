@@ -5,10 +5,10 @@
 
 ## Feature matrix
 
-| Authentication    |    |
-|-------------------|----|
-| Authentication    | ✅ |
-| Re-authentication | ❌ |
+| Authentication                       |    |
+|--------------------------------------|----|
+| Authentication                       | ✅ |
+| Re-authentication when token expires | ❌ |
 
 | Account                   |    |
 |---------------------------|----|
