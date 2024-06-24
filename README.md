@@ -15,7 +15,7 @@
 | Get account info          | ✅ |
 | Get account subscriptions | ✅ |
 | Get account subscription  | ✅|
-| Get account shares        | ❌ |
+| Get account shares        | ✅ |
 
 | Commands              |    |
 |-----------------------|----|

@@ -47,4 +47,10 @@ func main() {
 		}
 		fmt.Printf("%+v\n", sub)
 	}
+
+	shares, err := t.GetAccountShares()
+	if err != nil {
+		log.Fatalf("Failed to get account shares: %v", err)
+	}
+	fmt.Printf("%+v\n", shares)
 }
