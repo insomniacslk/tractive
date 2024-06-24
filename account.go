@@ -104,6 +104,42 @@ type AccountSubscriptionsResponse []struct {
 	Type    string `json:"_type"`
 }
 
+type AccountSubscriptionResponse struct {
+	ID                       string        `json:"_id"`
+	Version                  string        `json:"_version"`
+	Type                     string        `json:"_type"`
+	Status                   string        `json:"status"`
+	ValidFrom                int64         `json:"valid_from"`
+	ValidTo                  int64         `json:"valid_to"`
+	TrialEndDate             interface{}   `json:"trial_end_date"`
+	Recurring                bool          `json:"recurring"`
+	PlanTypeUsed             string        `json:"plan_type_used"`
+	ExtraMonths              []interface{} `json:"extra_months"`
+	RecurringPausedUntil     interface{}   `json:"recurring_paused_until"`
+	ServicePausedUntil       interface{}   `json:"service_paused_until"`
+	TrackerShipped           bool          `json:"trackers_shipped"`
+	DunningSince             interface{}   `json:"dunning_since"`
+	PaymentPlanID            string        `json:"payment_plan_id"`
+	AdditionalServiceIDs     []string      `json:"additional_service_ids"`
+	SuspendedAt              interface{}   `json:"suspended_at"`
+	HomeCountry              string        `json:"home_country"`
+	StateCode                interface{}   `json:"state_code"`
+	ZipCode                  interface{}   `json:"zip_code"`
+	ReadOnly                 bool          `json:"read_only"`
+	TrackerID                string        `json:"tracker_id"`
+	BillingInterval          string        `json:"billing_interval"`
+	InsuranceActive          bool          `json:"insurance_active"`
+	InsuranceClaimsAvailable bool          `json:"insurance_claims_available"`
+	ServiceCanBePaused       bool          `json:"service_can_be_paused"`
+	Transferable             bool          `json:"transferable"`
+	Refundable               bool          `json:"refundable"`
+	IsShelterTransferrable   interface{}   `json:"is_shelter_transferable"`
+	Care                     struct {
+		Status          string `json:"status"`
+		AvailableClaims int    `json:"available_claims"`
+	} `json:"care"`
+}
+
 func (t *Tractive) GetAccountInfo() (*AccountInfoResponse, error) {
 	u := getTractiveURL()
 	u.Path = "/4/user/" + t.UserID
@@ -126,6 +162,20 @@ func (t *Tractive) GetAccountSubscriptions() (*AccountSubscriptionsResponse, err
 		return nil, fmt.Errorf("request failed: %w", err)
 	}
 	var asr AccountSubscriptionsResponse
+	if err := json.Unmarshal(body, &asr); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal json response: %w", err)
+	}
+	return &asr, nil
+}
+
+func (t *Tractive) GetAccountSubscription(subscriptionID string) (*AccountSubscriptionResponse, error) {
+	u := getTractiveURL()
+	u.Path = "/4/subscription/" + subscriptionID
+	body, err := tractiveRequest("GET", u, t.Token)
+	if err != nil {
+		return nil, fmt.Errorf("request failed: %w", err)
+	}
+	var asr AccountSubscriptionResponse
 	if err := json.Unmarshal(body, &asr); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal json response: %w", err)
 	}

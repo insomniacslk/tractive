@@ -40,7 +40,11 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to get account subscriptions: %v", err)
 	}
-	for _, sub := range *subscriptions {
+	for _, s := range *subscriptions {
+		sub, err := t.GetAccountSubscription(s.ID)
+		if err != nil {
+			logrus.Warningf("Failed to get subscription %q: %v", s.ID, err)
+		}
 		fmt.Printf("%+v\n", sub)
 	}
 }
