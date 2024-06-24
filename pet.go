@@ -3,6 +3,8 @@ package tractive
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/insomniacslk/xjson"
 )
 
 type PetsResponse []struct {
@@ -11,37 +13,37 @@ type PetsResponse []struct {
 
 type PetResponse struct {
 	Envelope
-	LeaderboardOptOut bool   `json:"leaderboard_opt_out"`
-	DeviceID          string `json:"device_id"`
-	ReadOnly          bool   `json:"read_only"`
-	CreatedAt         int64  `json:"created_at"`
+	LeaderboardOptOut bool           `json:"leaderboard_opt_out"`
+	DeviceID          string         `json:"device_id"`
+	ReadOnly          bool           `json:"read_only"`
+	CreatedAt         xjson.TimeUnix `json:"created_at"`
 	Details           struct {
 		Envelope
-		Name                string        `json:"name"`
-		PetType             string        `json:"pet_type"`
-		BreedIDs            []string      `json:"breed_ids"`
-		Gender              string        `json:"gender"`
-		Birthday            int64         `json:"birthday"`
-		ProfilePictureFrame interface{}   `json:"profile_picture_frame"`
-		Height              float64       `json:"height"`
-		Length              interface{}   `json:"length"`
-		Weight              int           `json:"weight"`
-		ChipID              string        `json:"chip_id"`
-		Neutered            bool          `json:"neutered"`
-		Personality         []interface{} `json:"personality"`
-		LostOrDead          interface{}   `json:"lost_or_dead"`
-		Lim                 interface{}   `json:"lim"`
-		RibCage             interface{}   `json:"ribcage"`
-		WeightIsDefault     interface{}   `json:"weight_is_default"`
-		HeightIsDefault     interface{}   `json:"height_is_default"`
-		BirthdayIsDefault   interface{}   `json:"birthday_is_default"`
-		BreedIsDefault      interface{}   `json:"breed_is_default"`
-		InstagramUsername   string        `json:"instagram_user_name"`
-		ProfilePictureID    string        `json:"profile_picture_id"`
-		CoverPictureID      string        `json:"cover_picture_id"`
-		CharacteristicIDs   []interface{} `json:"characteristic_ids"`
-		GalleryPictureIDs   []interface{} `json:"gallery_picture_ids"`
-		ReadOnly            bool          `json:"read_only"`
+		Name                string         `json:"name"`
+		PetType             string         `json:"pet_type"`
+		BreedIDs            []string       `json:"breed_ids"`
+		Gender              string         `json:"gender"`
+		Birthday            xjson.TimeUnix `json:"birthday"`
+		ProfilePictureFrame interface{}    `json:"profile_picture_frame"`
+		Height              float64        `json:"height"`
+		Length              interface{}    `json:"length"`
+		Weight              int            `json:"weight"`
+		ChipID              string         `json:"chip_id"`
+		Neutered            bool           `json:"neutered"`
+		Personality         []interface{}  `json:"personality"`
+		LostOrDead          interface{}    `json:"lost_or_dead"`
+		Lim                 interface{}    `json:"lim"`
+		RibCage             interface{}    `json:"ribcage"`
+		WeightIsDefault     interface{}    `json:"weight_is_default"`
+		HeightIsDefault     interface{}    `json:"height_is_default"`
+		BirthdayIsDefault   interface{}    `json:"birthday_is_default"`
+		BreedIsDefault      interface{}    `json:"breed_is_default"`
+		InstagramUsername   string         `json:"instagram_user_name"`
+		ProfilePictureID    string         `json:"profile_picture_id"`
+		CoverPictureID      string         `json:"cover_picture_id"`
+		CharacteristicIDs   []interface{}  `json:"characteristic_ids"`
+		GalleryPictureIDs   []interface{}  `json:"gallery_picture_ids"`
+		ReadOnly            bool           `json:"read_only"`
 		ActivitySettings    struct {
 			Envelope
 			DailyGoal                          int         `json:"daily_goal"`

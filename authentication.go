@@ -5,13 +5,15 @@ import (
 	"fmt"
 	"net/url"
 	"time"
+
+	"github.com/insomniacslk/xjson"
 )
 
 type AuthenticationResponse struct {
-	UserID      string `json:"user_id"`
-	ClientID    string `json:"client_id"`
-	ExpiresAt   int64  `json:"expires_at"`
-	AccessToken string `json:"access_token"`
+	UserID      string         `json:"user_id"`
+	ClientID    string         `json:"client_id"`
+	ExpiresAt   xjson.TimeUnix `json:"expires_at"`
+	AccessToken string         `json:"access_token"`
 }
 
 func Authenticate(username, password string) (*Tractive, error) {
@@ -36,6 +38,6 @@ func Authenticate(username, password string) (*Tractive, error) {
 		UserID:         ar.UserID,
 		ClientID:       ar.ClientID,
 		Token:          ar.AccessToken,
-		TokenExpiresAt: time.Unix(ar.ExpiresAt, 0),
+		TokenExpiresAt: time.Unix(time.Time(ar.ExpiresAt).Unix(), 0),
 	}, nil
 }

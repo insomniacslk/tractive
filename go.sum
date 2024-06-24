@@ -1,6 +1,12 @@
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/insomniacslk/xjson v0.0.0-20240605162811-87a2577578b2 h1:o1Bl6FkPhaVqf9aj8Rm3cm9KNdPb1ewRZCs8kQnSrSg=
+github.com/insomniacslk/xjson v0.0.0-20240605162811-87a2577578b2/go.mod h1:Z4EVr4bVv9LZbbje9xyZEyOLpdCOmCvr5S9BJtrdTfw=
+github.com/insomniacslk/xjson v0.0.0-20240624131559-533fc76d142c h1:OONRJqs2Hp1xx3FGlE48Vg38GWnpP9D4A8X2f+cX+vc=
+github.com/insomniacslk/xjson v0.0.0-20240624131559-533fc76d142c/go.mod h1:Z4EVr4bVv9LZbbje9xyZEyOLpdCOmCvr5S9BJtrdTfw=
+github.com/insomniacslk/xjson v0.0.0-20240624131953-2ef5f14e6a74 h1:vtc2PF74Oi/Z92JO4feHB62J6sO1nmtcm1nfiE3G9ZM=
+github.com/insomniacslk/xjson v0.0.0-20240624131953-2ef5f14e6a74/go.mod h1:Z4EVr4bVv9LZbbje9xyZEyOLpdCOmCvr5S9BJtrdTfw=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/sirupsen/logrus v1.9.3 h1:dueUQJ1C2q9oE3F7wvmSGAaVtTmUizReu6fjN8uqzbQ=

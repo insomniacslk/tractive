@@ -12,9 +12,9 @@ import (
 )
 
 const (
-	TractiveScheme   = "https"
-	TractiveHost     = "graph.tractive.com"
-	TractiveClientID = "6536c228870a3c8857d452e8"
+	TractiveScheme = "https"
+	TractiveHost   = "graph.tractive.com"
+	ClientID       = "6536c228870a3c8857d452e8"
 )
 
 type Tractive struct {
@@ -39,7 +39,7 @@ func tractiveRequest(method string, u url.URL, token string) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to create http request: %w", err)
 	}
-	req.Header.Set("X-Tractive-Client", TractiveClientID)
+	req.Header.Set("X-Tractive-Client", ClientID)
 	req.Header.Set("Content-Type", "application/json")
 	if token != "" {
 		req.Header.Set("Authorization", "Bearer "+token)

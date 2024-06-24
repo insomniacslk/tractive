@@ -3,6 +3,8 @@ package tractive
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/insomniacslk/xjson"
 )
 
 type Envelope struct {
@@ -32,12 +34,12 @@ type AccountInfoSubSettings struct {
 
 type AccountInfoResponse struct {
 	Envelope
-	Email             string  `json:"email"`
-	ActivatedAt       int64   `json:"activated_at"`
-	ProfilePictureID  *string `json:"profile_picture_id"`
-	MembershipType    string  `json:"membership_type"`
-	ReferralBonusType string  `json:"referral_bonus_type"`
-	GUID              string  `json:"guid"`
+	Email             string         `json:"email"`
+	ActivatedAt       xjson.TimeUnix `json:"activated_at"`
+	ProfilePictureID  *string        `json:"profile_picture_id"`
+	MembershipType    string         `json:"membership_type"`
+	ReferralBonusType string         `json:"referral_bonus_type"`
+	GUID              string         `json:"guid"`
 	Details           struct {
 		Envelope
 		FirstName       string  `json:"first_name"`
@@ -83,13 +85,13 @@ type AccountInfoResponse struct {
 		ZipCode      interface{} `json:"zip_code"`
 		State        interface{} `json:"state"`
 	} `json:"invoice_address"`
-	Shelter                 interface{}   `json:"shelter"`
-	ProfilePictures         []interface{} `json:"profile_pictures"`
-	Role                    []string      `json:"role"`
-	ReferralLink            string        `json:"referral_link"`
-	TermsAcceptedAt         int64         `json:"terms_accepted_at"`
-	PrivacyPolicyAcceptedAt int64         `json:"privacy_policy_accepted_at"`
-	UserFederatedLogin      bool          `json:"user_federated_login"`
+	Shelter                 interface{}    `json:"shelter"`
+	ProfilePictures         []interface{}  `json:"profile_pictures"`
+	Role                    []string       `json:"role"`
+	ReferralLink            string         `json:"referral_link"`
+	TermsAcceptedAt         xjson.TimeUnix `json:"terms_accepted_at"`
+	PrivacyPolicyAcceptedAt xjson.TimeUnix `json:"privacy_policy_accepted_at"`
+	UserFederatedLogin      bool           `json:"user_federated_login"`
 }
 
 type AccountSubscriptionsResponse []struct {
@@ -98,32 +100,32 @@ type AccountSubscriptionsResponse []struct {
 
 type AccountSubscriptionResponse struct {
 	Envelope
-	Status                   string        `json:"status"`
-	ValidFrom                int64         `json:"valid_from"`
-	ValidTo                  int64         `json:"valid_to"`
-	TrialEndDate             interface{}   `json:"trial_end_date"`
-	Recurring                bool          `json:"recurring"`
-	PlanTypeUsed             string        `json:"plan_type_used"`
-	ExtraMonths              []interface{} `json:"extra_months"`
-	RecurringPausedUntil     interface{}   `json:"recurring_paused_until"`
-	ServicePausedUntil       interface{}   `json:"service_paused_until"`
-	TrackerShipped           bool          `json:"trackers_shipped"`
-	DunningSince             interface{}   `json:"dunning_since"`
-	PaymentPlanID            string        `json:"payment_plan_id"`
-	AdditionalServiceIDs     []string      `json:"additional_service_ids"`
-	SuspendedAt              interface{}   `json:"suspended_at"`
-	HomeCountry              string        `json:"home_country"`
-	StateCode                interface{}   `json:"state_code"`
-	ZipCode                  interface{}   `json:"zip_code"`
-	ReadOnly                 bool          `json:"read_only"`
-	TrackerID                string        `json:"tracker_id"`
-	BillingInterval          string        `json:"billing_interval"`
-	InsuranceActive          bool          `json:"insurance_active"`
-	InsuranceClaimsAvailable bool          `json:"insurance_claims_available"`
-	ServiceCanBePaused       bool          `json:"service_can_be_paused"`
-	Transferable             bool          `json:"transferable"`
-	Refundable               bool          `json:"refundable"`
-	IsShelterTransferrable   interface{}   `json:"is_shelter_transferable"`
+	Status                   string         `json:"status"`
+	ValidFrom                xjson.TimeUnix `json:"valid_from"`
+	ValidTo                  xjson.TimeUnix `json:"valid_to"`
+	TrialEndDate             interface{}    `json:"trial_end_date"`
+	Recurring                bool           `json:"recurring"`
+	PlanTypeUsed             string         `json:"plan_type_used"`
+	ExtraMonths              []interface{}  `json:"extra_months"`
+	RecurringPausedUntil     interface{}    `json:"recurring_paused_until"`
+	ServicePausedUntil       interface{}    `json:"service_paused_until"`
+	TrackerShipped           bool           `json:"trackers_shipped"`
+	DunningSince             interface{}    `json:"dunning_since"`
+	PaymentPlanID            string         `json:"payment_plan_id"`
+	AdditionalServiceIDs     []string       `json:"additional_service_ids"`
+	SuspendedAt              interface{}    `json:"suspended_at"`
+	HomeCountry              string         `json:"home_country"`
+	StateCode                interface{}    `json:"state_code"`
+	ZipCode                  interface{}    `json:"zip_code"`
+	ReadOnly                 bool           `json:"read_only"`
+	TrackerID                string         `json:"tracker_id"`
+	BillingInterval          string         `json:"billing_interval"`
+	InsuranceActive          bool           `json:"insurance_active"`
+	InsuranceClaimsAvailable bool           `json:"insurance_claims_available"`
+	ServiceCanBePaused       bool           `json:"service_can_be_paused"`
+	Transferable             bool           `json:"transferable"`
+	Refundable               bool           `json:"refundable"`
+	IsShelterTransferrable   interface{}    `json:"is_shelter_transferable"`
 	Care                     struct {
 		Status          string `json:"status"`
 		AvailableClaims int    `json:"available_claims"`
@@ -141,11 +143,11 @@ func (t *Tractive) GetAccountInfo() (*AccountInfoResponse, error) {
 	if err != nil {
 		return nil, fmt.Errorf("request failed: %w", err)
 	}
-	var air AccountInfoResponse
-	if err := json.Unmarshal(body, &air); err != nil {
+	var resp AccountInfoResponse
+	if err := json.Unmarshal(body, &resp); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal json response: %w", err)
 	}
-	return &air, nil
+	return &resp, nil
 }
 
 func (t *Tractive) GetAccountSubscriptions() (*AccountSubscriptionsResponse, error) {
@@ -155,11 +157,11 @@ func (t *Tractive) GetAccountSubscriptions() (*AccountSubscriptionsResponse, err
 	if err != nil {
 		return nil, fmt.Errorf("request failed: %w", err)
 	}
-	var asr AccountSubscriptionsResponse
-	if err := json.Unmarshal(body, &asr); err != nil {
+	var resp AccountSubscriptionsResponse
+	if err := json.Unmarshal(body, &resp); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal json response: %w", err)
 	}
-	return &asr, nil
+	return &resp, nil
 }
 
 func (t *Tractive) GetAccountSubscription(subscriptionID string) (*AccountSubscriptionResponse, error) {
@@ -169,11 +171,11 @@ func (t *Tractive) GetAccountSubscription(subscriptionID string) (*AccountSubscr
 	if err != nil {
 		return nil, fmt.Errorf("request failed: %w", err)
 	}
-	var asr AccountSubscriptionResponse
-	if err := json.Unmarshal(body, &asr); err != nil {
+	var resp AccountSubscriptionResponse
+	if err := json.Unmarshal(body, &resp); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal json response: %w", err)
 	}
-	return &asr, nil
+	return &resp, nil
 }
 
 func (t *Tractive) GetAccountShares() (*AccountSharesResponse, error) {
@@ -183,9 +185,9 @@ func (t *Tractive) GetAccountShares() (*AccountSharesResponse, error) {
 	if err != nil {
 		return nil, fmt.Errorf("request failed: %w", err)
 	}
-	var asr AccountSharesResponse
-	if err := json.Unmarshal(body, &asr); err != nil {
+	var resp AccountSharesResponse
+	if err := json.Unmarshal(body, &resp); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal json response: %w", err)
 	}
-	return &asr, nil
+	return &resp, nil
 }

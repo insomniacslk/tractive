@@ -5,10 +5,11 @@
 
 ## Feature matrix
 
-| Authentication                       |    |
+| API                                  |    |
 |--------------------------------------|----|
 | Authentication                       | ✅ |
 | Re-authentication when token expires | ❌ |
+| Handle rate-limits                   | ❌ |
 
 | Account                   |    |
 |---------------------------|----|
@@ -33,8 +34,8 @@
 
 | Tracker              |    |
 |----------------------|----|
-| Get all trackers     | ❌ |
-| Get tracker          | ❌ |
+| Get all trackers     | ✅ |
+| Get tracker          | ✅ |
 | Get tracker history  | ❌ |
 | Get tracker location | ❌ |
 | Get tracker hardware | ❌ |
