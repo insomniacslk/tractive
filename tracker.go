@@ -3,6 +3,8 @@ package tractive
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
+	"time"
 
 	"github.com/insomniacslk/xjson"
 )
@@ -36,6 +38,18 @@ type GetTrackerResponse struct {
 	PrioritizedZoneEnteredAt  xjson.TimeUnix `json:"prioritized_zone_entered_at"`
 }
 
+type GetTrackerPositionsResponse [][]TrackerPositions
+
+type TrackerPositions struct {
+	Time           int64      `json:"time"`
+	LatLong        [2]float64 `json:"latlong"`
+	Alt            int        `json:"alt"`
+	Speed          float64    `json:"speed"`
+	Course         int        `json:"course"`
+	PosUncertainty int        `json:"pos_uncertainty"`
+	SensorUsed     string     `json:"sensor_used"`
+}
+
 func (t *Tractive) GetAllTrackers() (*GetAllTrackersResponse, error) {
 	u := getTractiveURL()
 	u.Path = "/4/user/" + t.UserID + "/trackers"
@@ -58,6 +72,28 @@ func (t *Tractive) GetTracker(trackerID string) (*GetTrackerResponse, error) {
 		return nil, fmt.Errorf("request failed: %w", err)
 	}
 	var resp GetTrackerResponse
+	if err := json.Unmarshal(body, &resp); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal json response: %w", err)
+	}
+	return &resp, nil
+}
+
+func (t *Tractive) GetTrackerPositions(trackerID string) (*GetTrackerPositionsResponse, error) {
+	u := getTractiveURL()
+	// FIXME: using API version 3 because I couldn't find the equivalent method for API v4
+	u.Path = "/3/tracker/" + trackerID + "/positions"
+	q := u.Query()
+	start := time.Now().Add(-8 * time.Hour)
+	end := time.Now()
+	q.Add("time_from", strconv.FormatInt(start.Unix(), 10))
+	q.Add("time_to", strconv.FormatInt(end.Unix(), 10))
+	q.Add("format", "json_segments")
+	u.RawQuery = q.Encode()
+	body, err := tractiveRequest("GET", u, t.Token)
+	if err != nil {
+		return nil, fmt.Errorf("request failed: %w", err)
+	}
+	var resp GetTrackerPositionsResponse
 	if err := json.Unmarshal(body, &resp); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal json response: %w", err)
 	}

@@ -98,7 +98,17 @@ func main() {
 		tracker, err := t.GetTracker(tr.ID)
 		if err != nil {
 			logrus.Warningf("Failed to get tracker %q: %v", tr.ID, err)
+			continue
 		}
 		fmt.Printf("Tracker: %+v\n", tracker)
+		positions, err := t.GetTrackerPositions(tr.ID)
+		if err != nil {
+			logrus.Warningf("Failed to get tracker %q 's positions: %v", tr.ID, err)
+			continue
+		}
+		fmt.Printf("Tracker positions:\n")
+		for _, pos := range (*positions)[0] {
+			fmt.Printf("  %+v\n", pos)
+		}
 	}
 }
