@@ -15,27 +15,27 @@ type GetAllTrackersResponse []struct {
 
 type GetTrackerResponse struct {
 	Envelope
-	HwID                      string         `json:"hw_id"`
-	HwEdition                 string         `json:"hw_edition"`
-	ModelNumber               string         `json:"model_number"`
-	BluetoothMAC              interface{}    `json:"bluetooth_mac"`
-	GeofenceSensitivity       string         `json:"geofence_sensitivity"`
-	BatterySaveMode           interface{}    `json:"battery_save_mode"`
-	ReadOnly                  bool           `json:"read_only"`
-	Demo                      bool           `json:"demo"`
-	SelfTestAvailable         bool           `json:"self_test_available"`
-	Capabilities              []string       `json:"capabilities"`
-	SupportedGeofenceTypes    []string       `json:"supported_geofence_types"`
-	FwVersion                 string         `json:"fw_version"`
-	State                     string         `json:"state"`
-	StateReason               string         `json:"state_reason"`
-	ChargingState             string         `json:"charging_state"`
-	BatteryState              string         `json:"battery_state"`
-	PowerSavingZoneID         string         `json:"power_saving_zone_id"`
-	PrioritizedZoneID         string         `json:"prioritized_zone_id"`
-	PrioritizedZoneType       string         `json:"prioritized_zone_type"`
-	PrioritizedZoneLastSeenAt xjson.TimeUnix `json:"prioritized_zone_last_seen_at"`
-	PrioritizedZoneEnteredAt  xjson.TimeUnix `json:"prioritized_zone_entered_at"`
+	HwID                      string          `json:"hw_id"`
+	HwEdition                 string          `json:"hw_edition"`
+	ModelNumber               string          `json:"model_number"`
+	BluetoothMAC              interface{}     `json:"bluetooth_mac"`
+	GeofenceSensitivity       string          `json:"geofence_sensitivity"`
+	BatterySaveMode           interface{}     `json:"battery_save_mode"`
+	ReadOnly                  bool            `json:"read_only"`
+	Demo                      bool            `json:"demo"`
+	SelfTestAvailable         bool            `json:"self_test_available"`
+	Capabilities              []string        `json:"capabilities"`
+	SupportedGeofenceTypes    []string        `json:"supported_geofence_types"`
+	FwVersion                 string          `json:"fw_version"`
+	State                     string          `json:"state"`
+	StateReason               *string         `json:"state_reason"`
+	ChargingState             string          `json:"charging_state"`
+	BatteryState              string          `json:"battery_state"`
+	PowerSavingZoneID         string          `json:"power_saving_zone_id"`
+	PrioritizedZoneID         *string         `json:"prioritized_zone_id"`
+	PrioritizedZoneType       *string         `json:"prioritized_zone_type"`
+	PrioritizedZoneLastSeenAt *xjson.TimeUnix `json:"prioritized_zone_last_seen_at"`
+	PrioritizedZoneEnteredAt  *xjson.TimeUnix `json:"prioritized_zone_entered_at"`
 }
 
 type GetTrackerPositionsResponse [][]TrackerPosition
