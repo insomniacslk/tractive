@@ -11,7 +11,7 @@ import (
 
 var (
 	flagToken    = pflag.StringP("token", "t", "", "Token. If empty, username and password must be specified. Requires --user-id")
-	flagUserID   = pflag.StringP("user-id", "i", "", "User ID. If empty, username and password must be set. Requires --user-id")
+	flagUserID   = pflag.StringP("user-id", "i", "", "User ID. If empty, username and password must be set. Requires --token")
 	flagUsername = pflag.StringP("username", "u", "", "Username (e-mail)")
 	flagPassword = pflag.StringP("password", "p", "", "Password")
 	flagDebug    = pflag.BoolP("debug", "D", false, "Enable debug logs (might print sensitive information)")
@@ -108,7 +108,7 @@ func main() {
 		}
 		fmt.Printf("Tracker positions:\n")
 		for _, pos := range (*positions)[0] {
-			fmt.Printf("  %+v\n", pos)
+			fmt.Printf("  %s\n", pos.String())
 		}
 	}
 }

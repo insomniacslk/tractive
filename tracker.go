@@ -38,9 +38,9 @@ type GetTrackerResponse struct {
 	PrioritizedZoneEnteredAt  xjson.TimeUnix `json:"prioritized_zone_entered_at"`
 }
 
-type GetTrackerPositionsResponse [][]TrackerPositions
+type GetTrackerPositionsResponse [][]TrackerPosition
 
-type TrackerPositions struct {
+type TrackerPosition struct {
 	Time           int64      `json:"time"`
 	LatLong        [2]float64 `json:"latlong"`
 	Alt            int        `json:"alt"`
@@ -48,6 +48,10 @@ type TrackerPositions struct {
 	Course         int        `json:"course"`
 	PosUncertainty int        `json:"pos_uncertainty"`
 	SensorUsed     string     `json:"sensor_used"`
+}
+
+func (p *TrackerPosition) String() string {
+	return fmt.Sprintf("[%s] latitude=%.3f longitude=%.3f altitude=%d speed=%.3f course=%d pos_uncertainty=%d sensor_used=%s", time.Unix(p.Time, 0), p.LatLong[0], p.LatLong[1], p.Alt, p.Speed, p.Course, p.PosUncertainty, p.SensorUsed)
 }
 
 func (t *Tractive) GetAllTrackers() (*GetAllTrackersResponse, error) {
@@ -78,13 +82,11 @@ func (t *Tractive) GetTracker(trackerID string) (*GetTrackerResponse, error) {
 	return &resp, nil
 }
 
-func (t *Tractive) GetTrackerPositions(trackerID string) (*GetTrackerPositionsResponse, error) {
+func (t *Tractive) GetTrackerPositions(trackerID string, start, end time.Time) (*GetTrackerPositionsResponse, error) {
 	u := getTractiveURL()
 	// FIXME: using API version 3 because I couldn't find the equivalent method for API v4
 	u.Path = "/3/tracker/" + trackerID + "/positions"
 	q := u.Query()
-	start := time.Now().Add(-8 * time.Hour)
-	end := time.Now()
 	q.Add("time_from", strconv.FormatInt(start.Unix(), 10))
 	q.Add("time_to", strconv.FormatInt(end.Unix(), 10))
 	q.Add("format", "json_segments")
